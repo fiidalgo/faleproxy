@@ -33,6 +33,7 @@ app.post('/fetch', async (req, res) => {
     const $ = cheerio.load(html);
     
     // Function to replace text but skip URLs and attributes
+    // This preserves case: Yale→Fale, yale→fale, YALE→FALE
     function replaceYaleWithFale(i, el) {
       if ($(el).children().length === 0 || $(el).text().trim() !== '') {
         // Get the HTML content of the element

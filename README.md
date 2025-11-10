@@ -6,7 +6,8 @@ A Node.js web application that fetches a URL, replaces every instance of "Yale" 
 
 - Simple and intuitive user interface
 - Fetches web content from any URL
-- Replaces all instances of "Yale" with "Fale" (case-insensitive)
+- Replaces all instances of "Yale" with "Fale" while preserving case (Yale→Fale, yale→fale, YALE→FALE)
+- Preserves URLs and attributes containing "yale" unchanged
 - Displays the modified content in an iframe
 - Shows original URL and page title in an info bar
 
@@ -68,7 +69,10 @@ The repository includes a GitHub Actions workflow configuration in `.github/work
 1. Runs on pushes to main/master branches and on pull requests
 2. Tests the application on multiple Node.js versions (18.x, 20.x)
 3. Generates and uploads test coverage reports
-4. Automatically deploys to Vercel (when pushing to main/master)
+4. Automatically deploys to Vercel production (only when tests pass on main/master)
+5. Creates preview deployments for feature branches
+
+**Important**: Deployment to production only occurs when all tests pass, ensuring code quality.
 
 ### Setting up Vercel Deployment
 
@@ -76,9 +80,11 @@ To enable automatic deployments to Vercel, you need to:
 
 1. Create a Vercel account and link your repository
 2. Create a Vercel project for your application
-3. Generate a Vercel token and add it as a secret in your GitHub repository:
-   - Go to Settings → Secrets → Actions
-   - Add a new secret named `VERCEL_TOKEN` with your Vercel token
+3. Run `vercel link` in your project directory to get your Vercel IDs
+4. Add the following secrets to your GitHub repository (Settings → Secrets → Actions):
+   - `VERCEL_TOKEN`: Your Vercel API token
+   - `VERCEL_ORG_ID`: Your Vercel organization ID (from `.vercel/project.json`)
+   - `VERCEL_PROJECT_ID`: Your Vercel project ID (from `.vercel/project.json`)
 
 ## Technologies Used
 
