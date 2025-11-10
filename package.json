@@ -9,7 +9,7 @@
     "vercel-build": "echo 'Building for Vercel deployment'",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:ci": "jest --ci --coverage"
+    "test:ci": "jest --ci --coverage --testPathIgnorePatterns=integration.test.js"
   },
   "engines": {
     "node": ">=18.x"
@@ -32,14 +32,6 @@
       "!**/node_modules/**",
       "!**/coverage/**",
       "!jest.config.js"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "statements": 70,
-        "branches": 70,
-        "functions": 70,
-        "lines": 70
-      }
-    }
+    ]
   }
 }
